@@ -1,0 +1,16 @@
+.app {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
+  width: 100%;
+
+  margin: 0 auto;
+  padding: 0;
+
+  background-color: #131316;
+  font-family: 'JetBrains Mono', Arial, Helvetica, sans-serif;
+  text-rendering: optimizeLegibility;
+}
