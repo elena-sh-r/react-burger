@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import ingredientsStyles from './burger-ingredients.module.css';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+
 import IngredientsList from '../ingredients-list/ingredients-list'
 
-const BurgerIngredients = ({ data }) => {
+const BurgerIngredients = ({ data, handleIngredientClick }) => {
   const [current, setCurrent] = useState('one');
 
   const bunsRef = createRef();
@@ -19,27 +20,27 @@ const BurgerIngredients = ({ data }) => {
       <div style={{ display: 'flex' }} className={`pb-10`}>
         <Tab value="one" active={current === 'one'} onClick={(value) => {
           setCurrent(value);
-          bunsRef.current.scrollIntoView();
+          bunsRef.current.scrollIntoView({ behavior: 'smooth' });
         }}>
           Булки
         </Tab>
         <Tab value="two" active={current === 'two'} onClick={(value) => {
           setCurrent(value);
-          sauceRef.current.scrollIntoView();
+          sauceRef.current.scrollIntoView({ behavior: 'smooth' });
         }}>
           Соусы
         </Tab>
         <Tab value="three" active={current === 'three'} onClick={(value) => {
           setCurrent(value);
-          mainRef.current.scrollIntoView();
+          mainRef.current.scrollIntoView({ behavior: 'smooth' });
         }}>
           Начинки
         </Tab>
       </div>
       <div className={`${ingredientsStyles['burger-ingredients__ingredients-list-container']}`}>
-        <IngredientsList data={data} title="Булки" type="bun" ref={bunsRef} />
-        <IngredientsList data={data} title="Соусы" type="sauce" ref={sauceRef} />
-        <IngredientsList data={data} title="Начинки" type="main" ref={mainRef} />
+        <IngredientsList data={data} title="Булки" type="bun" ref={bunsRef} handleIngredientClick={handleIngredientClick} />
+        <IngredientsList data={data} title="Соусы" type="sauce" ref={sauceRef} handleIngredientClick={handleIngredientClick} />
+        <IngredientsList data={data} title="Начинки" type="main" ref={mainRef} handleIngredientClick={handleIngredientClick} />
       </div>
     </section>
   );
@@ -48,5 +49,11 @@ const BurgerIngredients = ({ data }) => {
 export default BurgerIngredients;
 
 BurgerIngredients.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.arrayOf(PropTypes.shape({
+    type: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  })).isRequired,
+  handleIngredientClick: PropTypes.func.isRequired,
 };
