@@ -5,6 +5,8 @@ import ingredientsListStyles from './ingredients-list.module.css';
 
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
+import { ingredientType } from 'utils/types';
+
 const IngredientsList = forwardRef(({ data, title, type, handleIngredientClick }, ref) => {
 
   return (
@@ -29,12 +31,7 @@ const IngredientsList = forwardRef(({ data, title, type, handleIngredientClick }
 export default IngredientsList;
 
 IngredientsList.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
-    type: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-  })).isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
   title: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   handleIngredientClick: PropTypes.func,

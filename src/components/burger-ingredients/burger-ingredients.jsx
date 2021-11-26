@@ -5,7 +5,8 @@ import ingredientsStyles from './burger-ingredients.module.css';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import IngredientsList from '../ingredients-list/ingredients-list'
+import IngredientsList from '../ingredients-list/ingredients-list';
+import { ingredientType } from 'utils/types';
 
 const BurgerIngredients = ({ data, handleIngredientClick }) => {
   const [current, setCurrent] = useState('one');
@@ -49,11 +50,6 @@ const BurgerIngredients = ({ data, handleIngredientClick }) => {
 export default BurgerIngredients;
 
 BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
-    type: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-  })).isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
   handleIngredientClick: PropTypes.func.isRequired,
 };

@@ -5,11 +5,10 @@ import appStyles from 'components/app/app.module.css' ;
 import AppHeader from 'components/app-header/app-header';
 import BurgerIngredients from 'components/burger-ingredients/burger-ingredients';
 import BurgerConstructor from 'components/burger-constructor/burger-constructor';
-
 import { getIngredients } from '../../utils/IngredientsApi';
 import IngredientDetails from 'components/ingredient-details/ingredient-details';
-import ModalOverlay from 'components/modal-overlay/modal-overlay';
 import OrderDetails from 'components/order-details/order-details';
+import Modal from 'components/modal/modal';
 
 const App = ( ) => {
   const [ingredientsData, setIngredientsData] = useState([]);
@@ -45,13 +44,13 @@ const App = ( ) => {
         <BurgerIngredients data={ingredientsData} handleIngredientClick={handleIngredientClick} />
         <BurgerConstructor data={ingredientsData} handleOrderClick={handleOrderClick} />
 
-        {ingredientModalVisible && <ModalOverlay onClose={handleModalClose}>
-          {ingredient && <IngredientDetails ingredient={ingredient} onClose={handleModalClose} />}
-        </ModalOverlay> }
+        {ingredientModalVisible && ingredient && <Modal onClose={handleModalClose} title={"Детали ингредиента"} >
+          <IngredientDetails ingredient={ingredient} />
+        </Modal> }
 
-        {orderDetailstModalVisible && <ModalOverlay onClose={handleModalClose}>
-          {orderDetailstModalVisible && <OrderDetails onClose={handleModalClose} /> }
-        </ModalOverlay> }
+        {orderDetailstModalVisible && <Modal onClose={handleModalClose} >
+          <OrderDetails />
+        </Modal> }
       </main>
   </div>
   );
