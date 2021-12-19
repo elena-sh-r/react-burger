@@ -1,5 +1,8 @@
-const INGREDIENTS_API_URL = 'https://norma.nomoreparties.space/api/ingredients';
+const PATHS = {
+  ingredients: { path: 'https://norma.nomoreparties.space/api/ingredients' },
+  orders: { path: 'https://norma.nomoreparties.space/api/orders' },
+}
 
 export {
-  INGREDIENTS_API_URL,
+  PATHS,
 }
