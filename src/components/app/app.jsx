@@ -5,16 +5,19 @@ import appStyles from 'components/app/app.module.css' ;
 import AppHeader from 'components/app-header/app-header';
 import BurgerIngredients from 'components/burger-ingredients/burger-ingredients';
 import BurgerConstructor from 'components/burger-constructor/burger-constructor';
-import { getIngredients } from '../../utils/IngredientsApi';
+import { getIngredients, setOrder } from '../../utils/IngredientsApi';
 import IngredientDetails from 'components/ingredient-details/ingredient-details';
 import OrderDetails from 'components/order-details/order-details';
 import Modal from 'components/modal/modal';
 
-const App = ( ) => {
+import { BurgerContext } from '../../services/appContext.js';
+
+const App = ( _ ) => {
   const [ingredientsData, setIngredientsData] = useState([]);
   const [ingredient, setIngredient] = useState(null);
   const [ingredientModalVisible, setIngredientModalVisible] = useState(false);
   const [orderDetailstModalVisible, setOrderDetailstModalVisible] = useState(false);
+  const [orderNumber, setOrderNumber] = useState(null);
 
   useEffect(() => {
     getIngredients()
@@ -27,8 +30,13 @@ const App = ( ) => {
     setIngredientModalVisible(true);
   }
 
-  const handleOrderClick = () => {
-    setOrderDetailstModalVisible(true);
+  const handleOrderClick = ( ingredients ) => {
+    setOrder(ingredients)
+      .then((res) => {
+        setOrderNumber(res?.order?.number);
+        setOrderDetailstModalVisible(true);
+      })
+      .catch((err) => console.log(err.message))
   }
 
   const handleModalClose = (evt) => {
@@ -37,22 +45,34 @@ const App = ( ) => {
   }
 
   return (
-    <div className={`${appStyles.app}`}>
-      <AppHeader/>
+    <BurgerContext.Provider value={ingredientsData}>
+      <div className={`${appStyles.app}`}>
+        <AppHeader/>
 
-      <main className={`${appStyles.main}`}>
-        <BurgerIngredients data={ingredientsData} handleIngredientClick={handleIngredientClick} />
-        <BurgerConstructor data={ingredientsData} handleOrderClick={handleOrderClick} />
+        <main className={`${appStyles.main}`}>
+          <BurgerIngredients 
+            data={ ingredientsData } 
+            handleIngredientClick={ handleIngredientClick } 
+          />
 
-        {ingredientModalVisible && ingredient && <Modal onClose={handleModalClose} title={"Детали ингредиента"} >
-          <IngredientDetails ingredient={ingredient} />
-        </Modal> }
+          <BurgerConstructor
+            handleOrderClick={handleOrderClick} 
+          />
 
-        {orderDetailstModalVisible && <Modal onClose={handleModalClose} >
-          <OrderDetails />
-        </Modal> }
-      </main>
-  </div>
+          {ingredientModalVisible && ingredient && 
+            <Modal onClose={handleModalClose} title={"Детали ингредиента"} >
+              <IngredientDetails ingredient= {ingredient } />
+            </Modal> 
+          }
+
+          {orderDetailstModalVisible && 
+            <Modal onClose={handleModalClose} >
+              <OrderDetails orderNumber={ orderNumber } />
+            </Modal> 
+          }
+        </main>
+      </div>
+    </BurgerContext.Provider>
   );
 }
 
