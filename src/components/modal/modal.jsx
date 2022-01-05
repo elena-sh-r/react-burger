@@ -1,15 +1,24 @@
 import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import modalStyles from 'components/modal/modal.module.css';
 
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from 'components/modal-overlay/modal-overlay';
+import { resetIngredientDetails } from 'services/actions/ingredient-details';
+import { resetOrderDetails } from 'services/actions/order-details';
 
 const modalRoot = document.getElementById("modals");
 
-const Modal = ({ children, title, onClose }) => {
+const Modal = ({ children, title }) => {
+  const dispatch = useDispatch();
+
+  const onClose = () => {
+    dispatch(resetIngredientDetails());
+    dispatch(resetOrderDetails());
+  }
 
   const closeByEscape = (evt) => {
     if (evt.key === 'Escape') {
