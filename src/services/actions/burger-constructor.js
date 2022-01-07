@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export const ADD_CONSTRUCTOR_INGREDIENT = 'ADD_CONSTRUCTOR_INGREDIENT';
 export const DELETE_CONSTRUCTOR_INGREDIENT = 'DELETE_CONSTRUCTOR_INGREDIENT';
 export const SORT_CONSTRUCTOR_INGREDIENT = 'SORT_CONSTRUCTOR_INGREDIENT';
@@ -6,7 +8,7 @@ export function addConstructorIngredient({ ingredient }) {
   return function(dispatch) {
     dispatch({
       type: ADD_CONSTRUCTOR_INGREDIENT,
-      constructorIngredient: ingredient,
+      constructorIngredient: { ...ingredient, uniqueId: uuidv4() },
     });
   }
 }

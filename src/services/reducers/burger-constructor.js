@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
-
 import {
   ADD_CONSTRUCTOR_INGREDIENT,
   DELETE_CONSTRUCTOR_INGREDIENT,
@@ -16,8 +14,8 @@ export const burgerConstructorReducer = (state = initialState, { type, construct
       return {
         ...state,
         constructorIngredients: constructorIngredient.type === 'bun'
-          ? [...state.constructorIngredients.filter(x => x.type !== 'bun'), { ...constructorIngredient, uniqueId: uuidv4() }]
-          : [...state.constructorIngredients, { ...constructorIngredient, uniqueId: uuidv4() }],
+          ? [...state.constructorIngredients.filter(x => x.type !== 'bun'), constructorIngredient]
+          : [...state.constructorIngredients, constructorIngredient],
       };
     }
     case DELETE_CONSTRUCTOR_INGREDIENT: {
@@ -31,7 +29,7 @@ export const burgerConstructorReducer = (state = initialState, { type, construct
         ...state,
         constructorIngredients:
           ingredientIndexTo > ingredientIndexFrom
-          ? [...state.constructorIngredients.slice(0, ingredientIndexFrom), ...state.constructorIngredients.slice(ingredientIndexFrom + 1, ingredientIndexTo), state.constructorIngredients[ingredientIndexFrom], ...state.constructorIngredients.slice(ingredientIndexTo)]
+          ? [...state.constructorIngredients.slice(0, ingredientIndexFrom), ...state.constructorIngredients.slice(ingredientIndexFrom + 1, ingredientIndexTo + 1), state.constructorIngredients[ingredientIndexFrom], ...state.constructorIngredients.slice(ingredientIndexTo + 1)]
           : [...state.constructorIngredients.slice(0, ingredientIndexTo), state.constructorIngredients[ingredientIndexFrom], ...state.constructorIngredients.slice(ingredientIndexTo, ingredientIndexFrom), ...state.constructorIngredients.slice(ingredientIndexFrom + 1)]
       }
     }
