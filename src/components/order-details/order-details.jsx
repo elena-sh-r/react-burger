@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 
 import orderDetailsStyles from 'components/order-details/order-details.module.css';
 
@@ -21,7 +20,3 @@ const OrderDetails = () => {
 }
 
 export default OrderDetails;
-
-OrderDetails.propTypes = {
-  orderNumber: PropTypes.string.isRequired,
-}

@@ -35,8 +35,8 @@ const BurgerConstructorItems = ({ bun, fillings }) => {
           }
         </div>
         <div className={`${burgerConstructorItemsStyles['burger-constructor__center-items-container']}`}>
-          { fillings?.map(( item, index ) => 
-              <FillingConstructorElement key={index} item={item} />
+          { fillings?.map(( item ) => 
+              <FillingConstructorElement key={item.uniqueId} item={item} />
             )
           }
         </div>

@@ -12,8 +12,8 @@ const IngredientsList = forwardRef(({ data, title, type }, ref) => {
     <div className={`${ingredientsListStyles.ingredients}`} ref={ref}>
       <h3 className={`text text_type_main-medium pb-6`}>{title}</h3>
       <div className={`${ingredientsListStyles['ingredients__items']} pl-4 pb-10`}>
-        {data.filter(item => item.type === type).map((item, i) => (
-          <Ingredient key={i} item={item} />
+        {data.filter(item => item.type === type).map((item) => (
+          <Ingredient key={item._id} item={item} />
         ))}
       </div>
     </div>

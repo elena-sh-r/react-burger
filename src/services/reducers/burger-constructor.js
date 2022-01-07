@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 import {
   ADD_CONSTRUCTOR_INGREDIENT,
   DELETE_CONSTRUCTOR_INGREDIENT,
@@ -8,25 +10,14 @@ const initialState = {
   constructorIngredients: [],
 };
 
-const arraySort = (array, indexFrom, indexTo) => {
-  if (indexTo >= array.length) {
-      var k = indexTo - array.length + 1;
-      while (k--) {
-        array.push(undefined);
-      }
-  }
-  array.splice(indexTo, 0, array.splice(indexFrom, 1)[0]);
-  return array;
-};
-
 export const burgerConstructorReducer = (state = initialState, { type, constructorIngredient, ingredientIndex, ingredientIndexFrom, ingredientIndexTo }) => {
   switch (type) {
     case ADD_CONSTRUCTOR_INGREDIENT: {
       return {
         ...state,
         constructorIngredients: constructorIngredient.type === 'bun'
-          ? [...state.constructorIngredients.filter(x => x.type !== 'bun'), constructorIngredient]
-          : [...state.constructorIngredients, constructorIngredient],
+          ? [...state.constructorIngredients.filter(x => x.type !== 'bun'), { ...constructorIngredient, uniqueId: uuidv4() }]
+          : [...state.constructorIngredients, { ...constructorIngredient, uniqueId: uuidv4() }],
       };
     }
     case DELETE_CONSTRUCTOR_INGREDIENT: {
@@ -38,7 +29,10 @@ export const burgerConstructorReducer = (state = initialState, { type, construct
     case SORT_CONSTRUCTOR_INGREDIENT: {
       return {
         ...state,
-        constructorIngredients: [...arraySort(state.constructorIngredients, ingredientIndexFrom, ingredientIndexTo)],
+        constructorIngredients:
+          ingredientIndexTo > ingredientIndexFrom
+          ? [...state.constructorIngredients.slice(0, ingredientIndexFrom), ...state.constructorIngredients.slice(ingredientIndexFrom + 1, ingredientIndexTo), state.constructorIngredients[ingredientIndexFrom], ...state.constructorIngredients.slice(ingredientIndexTo)]
+          : [...state.constructorIngredients.slice(0, ingredientIndexTo), state.constructorIngredients[ingredientIndexFrom], ...state.constructorIngredients.slice(ingredientIndexTo, ingredientIndexFrom), ...state.constructorIngredients.slice(ingredientIndexFrom + 1)]
       }
     }
     default: {

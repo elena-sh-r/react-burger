@@ -20,7 +20,7 @@ const FillingConstructorElement = ({ item }) => {
   const [{ isHover }, dropTarget] = useDrop({
     accept: 'filling',
     drop({index}) {
-      dispatch(sortConstructorIngredient({ indexFrom: item.index, indexTo: index }));
+      dispatch(sortConstructorIngredient({ indexFrom: index, indexTo: item.index }));
     },
     collect: monitor => ({
       isHover: monitor.isOver(),
