@@ -24,7 +24,7 @@ const Ingredient = ({ item }: IProps) => {
 
   const {constructorIngredients} = useSelector((store) => store.burgerConstructor);
 
-  let count = (constructorIngredients as ReadonlyArray<TIngredientType>).filter(x => x._id === item._id).length;
+  let count = constructorIngredients.filter(x => x._id === item._id).length;
 
   if(item.type === 'bun') {
     count *= 2;

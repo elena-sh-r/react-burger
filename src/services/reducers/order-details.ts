@@ -10,7 +10,7 @@ import {
 import { TOrderDetailsActions } from 'services/actions/order-details';
 
 export type TOrderDetailsState = {
-  laureates: TOrderDetailsType | null;
+  orderDetails: TOrderDetailsType | null;
   orderDetailsRequest: boolean;
   orderDetailsFailed: boolean;
 };
@@ -21,7 +21,7 @@ const initialState = {
   orderDetailsFailed: false,
 };
 
-export const orderDetailsReducer = (state = initialState, 
+export const orderDetailsReducer = (state: TOrderDetailsState = initialState, 
   action: TOrderDetailsActions
   ) => {
   switch (action.type) {

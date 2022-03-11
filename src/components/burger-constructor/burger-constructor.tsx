@@ -9,19 +9,15 @@ import { getOrderDetailsThunk } from 'services/actions/order-details';
 import BurgerConstructorItems from 'components/burger-constructor-items/burger-constructor-items';
 import { TIngredientType } from 'services/types/data';
 
-interface IState {
-  constructorIngredients: ReadonlyArray<TIngredientType>,
-}
-
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
 
-  const { constructorIngredients } = useSelector((store) => store.burgerConstructor) as IState;
+  const { constructorIngredients } = useSelector((store) => store.burgerConstructor);
 
   const isBun = (item: TIngredientType) => item.type === 'bun';
 
-  const bun = constructorIngredients?.find((item: TIngredientType) => isBun(item));
-  const fillings = constructorIngredients?.map((item: TIngredientType, index: number) => { return {...item, index: index}} ).filter(item => !isBun(item));
+  const bun = constructorIngredients?.find(item => isBun(item));
+  const fillings = constructorIngredients?.map((item, index) => { return {...item, index: index}} ).filter(item => !isBun(item));
 
   const reducer = (previousItem: number, currentItem: TIngredientType) => previousItem + currentItem.price;
   const totalPrice = (bun?.price ?? 0) * 2 + (fillings?.reduce(reducer, 0) ?? 0);

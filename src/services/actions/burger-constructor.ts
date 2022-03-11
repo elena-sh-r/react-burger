@@ -4,6 +4,7 @@ import {
   ADD_CONSTRUCTOR_INGREDIENT,
   DELETE_CONSTRUCTOR_INGREDIENT,
   SORT_CONSTRUCTOR_INGREDIENT,
+  RESET_CONSTRUCTOR_INGREDIENTS,
 } from '../constants';
 
 import { TIngredientType } from '../types/data';
@@ -24,10 +25,15 @@ export interface ISortConstructorIngredient {
   readonly ingredientIndexTo: number;
 }
 
+export interface IResetConstructorIngredients {
+  readonly type: typeof RESET_CONSTRUCTOR_INGREDIENTS;
+}
+
 export type TConstructorIngredientActions =
   | IAddConstructorIngredient
   | IDeleteConstructorIngredient
-  | ISortConstructorIngredient;
+  | ISortConstructorIngredient
+  | IResetConstructorIngredients;
 
 
 export const addConstructorIngredient = ( ingredient: TIngredientType ): IAddConstructorIngredient => ({
@@ -44,4 +50,8 @@ export const sortConstructorIngredient = ( indexFrom: number, indexTo: number ):
   type: SORT_CONSTRUCTOR_INGREDIENT,
   ingredientIndexFrom: indexFrom,
   ingredientIndexTo: indexTo,
+});
+
+export const resetConstructorIngredients = (): IResetConstructorIngredients => ({
+  type: RESET_CONSTRUCTOR_INGREDIENTS,
 });

@@ -6,14 +6,8 @@ import ingredientDetailsStyles from 'components/ingredient-details/ingredient-de
 
 import NutritionValue from "components/nutrition-value/nutrition-value";
 
-import { TIngredientType } from 'services/types/data';
-
-interface IState {
-  ingredientDetails: TIngredientType,
-}
-
 const IngredientDetails = () => {
-  const {ingredientDetails} = useSelector((state) => state.ingredientDetails) as IState;
+  const {ingredientDetails} = useSelector((state) => state.ingredientDetails);
 
   return (
     <div className={`${ingredientDetailsStyles['ingredient-details']}`}>

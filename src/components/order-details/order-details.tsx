@@ -6,14 +6,8 @@ import orderDetailsStyles from 'components/order-details/order-details.module.cs
 
 import doneImagePath from 'images/order-details__done.gif'
 
-import { TOrderDetailsType } from 'services/types/data';
-
-interface IState {
-  orderDetails: TOrderDetailsType,
-}
-
 const OrderDetails = () => {
-  const { orderDetails } = useSelector((state) => state.orderDetails) as IState;
+  const { orderDetails } = useSelector((state) => state.orderDetails);
 
   return (
     <div className={`${orderDetailsStyles['order-details']} pb-30 pt-4`}>

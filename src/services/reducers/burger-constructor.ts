@@ -4,6 +4,7 @@ import {
   ADD_CONSTRUCTOR_INGREDIENT,
   DELETE_CONSTRUCTOR_INGREDIENT,
   SORT_CONSTRUCTOR_INGREDIENT,
+  RESET_CONSTRUCTOR_INGREDIENTS,
 } from '../constants';
 
 import type { TConstructorIngredientActions } from '../actions/burger-constructor';
@@ -17,7 +18,7 @@ const initialState = {
 };
 
 export const burgerConstructorReducer = (
-  state = initialState, 
+  state: TBurgerConstructorState = initialState, 
   action: TConstructorIngredientActions
   ): TBurgerConstructorState => {
   switch (action.type) {
@@ -42,6 +43,12 @@ export const burgerConstructorReducer = (
         action.ingredientIndexTo > action.ingredientIndexFrom
           ? [...state.constructorIngredients.slice(0, action.ingredientIndexFrom), ...state.constructorIngredients.slice(action.ingredientIndexFrom + 1, action.ingredientIndexTo + 1), state.constructorIngredients[action.ingredientIndexFrom], ...state.constructorIngredients.slice(action.ingredientIndexTo + 1)]
           : [...state.constructorIngredients.slice(0, action.ingredientIndexTo), state.constructorIngredients[action.ingredientIndexFrom], ...state.constructorIngredients.slice(action.ingredientIndexTo, action.ingredientIndexFrom), ...state.constructorIngredients.slice(action.ingredientIndexFrom + 1)]
+      }
+    }
+    case RESET_CONSTRUCTOR_INGREDIENTS: {
+      return {
+        ...state,
+        constructorIngredients: [],
       }
     }
     default: {

@@ -21,7 +21,7 @@ const initialState = {
 };
 
 export const burgerIngredientsReducer = (
-  state = initialState, 
+  state: TBurgerIngredientsState = initialState, 
   action: TBurgerIngredientsActions
   ): TBurgerIngredientsState => {
   switch (action.type) {

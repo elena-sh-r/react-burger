@@ -9,15 +9,9 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsList from '../ingredients-list/ingredients-list';
 import { getBurgerIngredientsThunk } from '../../services/actions/burger-ingredients';
 
-import { TIngredientType } from 'services/types/data';
-
-interface IState {
-  burgerIngredients: ReadonlyArray<TIngredientType>,
-}
-
 const BurgerIngredients = () => {
   const dispatch = useDispatch();
-  const {burgerIngredients} = useSelector((state) => state.burgerIngredients) as IState;
+  const {burgerIngredients} = useSelector((state) => state.burgerIngredients);
   const [current, setCurrent] = useState('one');
 
   const bunsRef = createRef<HTMLDivElement>();

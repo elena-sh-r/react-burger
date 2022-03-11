@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
@@ -15,11 +15,16 @@ import { useSelector, useDispatch } from 'services/hooks/hooks';
 
 import { resetIngredientDetails } from 'services/actions/ingredient-details';
 import { resetOrderDetailsAction } from 'services/actions/order-details';
+import { resetConstructorIngredients } from 'services/actions/burger-constructor';
 
 const App = () => {
   const dispatch = useDispatch();
   const {ingredientDetails} = useSelector((state) => state.ingredientDetails);
   const {orderDetails} = useSelector((state) => state.orderDetails);
+
+  useEffect(() => {
+    dispatch(resetConstructorIngredients());
+  }, [orderDetails]);
 
   const onIngredientModalClose = () => {
     dispatch(resetIngredientDetails());

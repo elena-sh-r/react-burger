@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import PropTypes from 'prop-types';
 
 import modalStyles from 'components/modal/modal.module.css';
 
@@ -44,8 +43,3 @@ const Modal = ({ children, title, onClose }: IProps) => {
 };
 
 export default Modal;
-
-Modal.propTypes = {
-  title: PropTypes.string,
-  onClose: PropTypes.func.isRequired,
-}

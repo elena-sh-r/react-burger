@@ -4,7 +4,7 @@ import nutritionValueStyles from 'components/nutrition-value/nutrition-value.mod
 
 interface IProps {
   title: string,
-  value: number,
+  value?: number,
 }
 
 const NutritionValue = ({ title, value }: IProps) => {
