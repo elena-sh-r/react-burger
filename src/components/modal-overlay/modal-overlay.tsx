@@ -1,9 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import modalOverlayStyles from './modal-overlay.module.css';
 
-const ModalOverlay = ({ children, onClose }) => {
+interface IProps {
+  children: any,
+  onClose: () => void,
+}
+
+const ModalOverlay = ({ children, onClose }: IProps) => {
   return(
     <section className={`${modalOverlayStyles['modal-overlay']}`} onClick={(evt) => {
       if (evt.target !== evt.currentTarget)
@@ -16,7 +20,3 @@ const ModalOverlay = ({ children, onClose }) => {
 };
 
 export default ModalOverlay;
-
-ModalOverlay.propTypes = {
-  onClose: PropTypes.func,
-}

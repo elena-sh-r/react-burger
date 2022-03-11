@@ -9,8 +9,14 @@ import ModalOverlay from 'components/modal-overlay/modal-overlay';
 
 const modalRoot = document.getElementById("modals");
 
-const Modal = ({ children, title, onClose }) => {
-  const closeByEscape = (evt) => {
+interface IProps {
+  children: any,
+  title?: string,
+  onClose: () => void,
+}
+
+const Modal = ({ children, title, onClose }: IProps) => {
+  const closeByEscape = (evt: KeyboardEvent) => {
     if (evt.key === 'Escape') {
       onClose();
     }
@@ -33,7 +39,7 @@ const Modal = ({ children, title, onClose }) => {
         {children}
       </div>
     </ModalOverlay>,
-    modalRoot
+    modalRoot as Element
   )
 };
 

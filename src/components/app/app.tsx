@@ -1,5 +1,4 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
@@ -12,20 +11,22 @@ import IngredientDetails from 'components/ingredient-details/ingredient-details'
 import OrderDetails from 'components/order-details/order-details';
 import Modal from 'components/modal/modal';
 
+import { useSelector, useDispatch } from 'services/hooks/hooks';
+
 import { resetIngredientDetails } from 'services/actions/ingredient-details';
-import { resetOrderDetails } from 'services/actions/order-details';
+import { resetOrderDetailsAction } from 'services/actions/order-details';
 
 const App = () => {
   const dispatch = useDispatch();
-  const ingredient = useSelector((state) => state.ingredientDetails.ingredientDetails);
-  const orderDetails = useSelector((state) => state.orderDetails.orderDetails);
+  const {ingredientDetails} = useSelector((state) => state.ingredientDetails);
+  const {orderDetails} = useSelector((state) => state.orderDetails);
 
   const onIngredientModalClose = () => {
     dispatch(resetIngredientDetails());
   }
 
   const onOrderModalClose = () => {
-    dispatch(resetOrderDetails());
+    dispatch(resetOrderDetailsAction());
   }
 
   return (
@@ -38,7 +39,7 @@ const App = () => {
 
           <BurgerConstructor />
 
-          {ingredient && 
+          {ingredientDetails && 
             <Modal title={"Детали ингредиента"} onClose={onIngredientModalClose} >
               <IngredientDetails />
             </Modal> 

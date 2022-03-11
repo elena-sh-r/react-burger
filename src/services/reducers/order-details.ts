@@ -1,9 +1,19 @@
+import { TOrderDetailsType } from '../types/data';
+
 import {
   GET_ORDER_DETAILS_REQUEST,
   GET_ORDER_DETAILS_SUCCESS,
   GET_ORDER_DETAILS_FAILED,
   RESET_ORDER_DETAILS,
-} from '../actions/order-details';
+} from '../constants';
+
+import { TOrderDetailsActions } from 'services/actions/order-details';
+
+export type TOrderDetailsState = {
+  laureates: TOrderDetailsType | null;
+  orderDetailsRequest: boolean;
+  orderDetailsFailed: boolean;
+};
 
 const initialState = {
   orderDetails: null,
@@ -11,8 +21,10 @@ const initialState = {
   orderDetailsFailed: false,
 };
 
-export const orderDetailsReducer = (state = initialState, { type, orderDetails }) => {
-  switch (type) {
+export const orderDetailsReducer = (state = initialState, 
+  action: TOrderDetailsActions
+  ) => {
+  switch (action.type) {
     case GET_ORDER_DETAILS_REQUEST: {
       return {
         ...state,
@@ -23,7 +35,7 @@ export const orderDetailsReducer = (state = initialState, { type, orderDetails }
       return {
         ...state,
         orderDetailsFailed: false,
-        orderDetails,
+        orderDetails: action.orderDetails,
         orderDetailsRequest: false,
       };
     }
