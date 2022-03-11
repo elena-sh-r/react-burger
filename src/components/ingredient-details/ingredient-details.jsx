@@ -1,12 +1,13 @@
-import React from "react";
-import PropTypes from 'prop-types';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 import ingredientDetailsStyles from 'components/ingredient-details/ingredient-details.module.css'
 
 import NutritionValue from "components/nutrition-value/nutrition-value";
-import { ingredientType } from "utils/types";
 
-const IngredientDetails = ({ ingredient }) => {
+const IngredientDetails = () => {
+  const ingredient = useSelector((state) => state.ingredientDetails.ingredientDetails);
+
   return (
     <div className={`${ingredientDetailsStyles['ingredient-details']}`}>
       <img className={`${ingredientDetailsStyles['ingredient-details__image']} pb-4`} src={ingredient.image_large} alt={ingredient.name} />
@@ -22,8 +23,3 @@ const IngredientDetails = ({ ingredient }) => {
 }
 
 export default IngredientDetails;
-
-IngredientDetails.propTypes = {
-  ingredient: PropTypes.shape(ingredientType).isRequired,
-  handleIngredientClick: PropTypes.func,
-};

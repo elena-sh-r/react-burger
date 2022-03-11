@@ -1,78 +1,57 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import appStyles from 'components/app/app.module.css' ;
 
 import AppHeader from 'components/app-header/app-header';
 import BurgerIngredients from 'components/burger-ingredients/burger-ingredients';
 import BurgerConstructor from 'components/burger-constructor/burger-constructor';
-import { getIngredients, setOrder } from '../../utils/IngredientsApi';
 import IngredientDetails from 'components/ingredient-details/ingredient-details';
 import OrderDetails from 'components/order-details/order-details';
 import Modal from 'components/modal/modal';
 
-import { BurgerContext } from '../../services/appContext.js';
+import { resetIngredientDetails } from 'services/actions/ingredient-details';
+import { resetOrderDetails } from 'services/actions/order-details';
 
-const App = ( _ ) => {
-  const [ingredientsData, setIngredientsData] = useState([]);
-  const [ingredient, setIngredient] = useState(null);
-  const [ingredientModalVisible, setIngredientModalVisible] = useState(false);
-  const [orderDetailstModalVisible, setOrderDetailstModalVisible] = useState(false);
-  const [orderNumber, setOrderNumber] = useState(null);
+const App = () => {
+  const dispatch = useDispatch();
+  const ingredient = useSelector((state) => state.ingredientDetails.ingredientDetails);
+  const orderDetails = useSelector((state) => state.orderDetails.orderDetails);
 
-  useEffect(() => {
-    getIngredients()
-      .then((res) => setIngredientsData(res.data))
-      .catch((err) => console.log(err.message))
-  }, []);
-
-  const handleIngredientClick = (item) => {
-    setIngredient(item);
-    setIngredientModalVisible(true);
+  const onIngredientModalClose = () => {
+    dispatch(resetIngredientDetails());
   }
 
-  const handleOrderClick = ( ingredients ) => {
-    setOrder(ingredients)
-      .then((res) => {
-        setOrderNumber(res?.order?.number);
-        setOrderDetailstModalVisible(true);
-      })
-      .catch((err) => console.log(err.message))
-  }
-
-  const handleModalClose = (evt) => {
-    setIngredientModalVisible(false);
-    setOrderDetailstModalVisible(false);
+  const onOrderModalClose = () => {
+    dispatch(resetOrderDetails());
   }
 
   return (
-    <BurgerContext.Provider value={ingredientsData}>
-      <div className={`${appStyles.app}`}>
-        <AppHeader/>
+    <div className={`${appStyles.app}`}>
+      <AppHeader/>
 
-        <main className={`${appStyles.main}`}>
-          <BurgerIngredients 
-            data={ ingredientsData } 
-            handleIngredientClick={ handleIngredientClick } 
-          />
+      <main className={`${appStyles.main}`}>
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngredients />
 
-          <BurgerConstructor
-            handleOrderClick={handleOrderClick} 
-          />
+          <BurgerConstructor />
 
-          {ingredientModalVisible && ingredient && 
-            <Modal onClose={handleModalClose} title={"Детали ингредиента"} >
-              <IngredientDetails ingredient= {ingredient } />
+          {ingredient && 
+            <Modal title={"Детали ингредиента"} onClose={onIngredientModalClose} >
+              <IngredientDetails />
             </Modal> 
           }
 
-          {orderDetailstModalVisible && 
-            <Modal onClose={handleModalClose} >
-              <OrderDetails orderNumber={ orderNumber } />
+          {orderDetails && 
+            <Modal onClose={onOrderModalClose} >
+              <OrderDetails />
             </Modal> 
           }
-        </main>
-      </div>
-    </BurgerContext.Provider>
+        </DndProvider>
+      </main>
+    </div>
   );
 }
 

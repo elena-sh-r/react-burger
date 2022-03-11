@@ -1,0 +1,10 @@
+.filling-constructor-element__container {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  transition: .2s;
+}
+
+.filling-constructor-element__container-hovered {
+  opacity: 0.5;
+}

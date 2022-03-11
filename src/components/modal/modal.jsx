@@ -10,7 +10,6 @@ import ModalOverlay from 'components/modal-overlay/modal-overlay';
 const modalRoot = document.getElementById("modals");
 
 const Modal = ({ children, title, onClose }) => {
-
   const closeByEscape = (evt) => {
     if (evt.key === 'Escape') {
       onClose();
@@ -42,5 +41,5 @@ export default Modal;
 
 Modal.propTypes = {
   title: PropTypes.string,
-  onClose: PropTypes.func,
+  onClose: PropTypes.func.isRequired,
 }

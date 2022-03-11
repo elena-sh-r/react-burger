@@ -5,14 +5,14 @@ const getResponse = (res) => (res.ok
   : res.json()
       .then((err) => Promise.reject(new Error(`${err.message} (${res.status} ${res.statusText})`))));
 
-const getIngredients = () => fetch(`${ PATHS.ingredients.path }`, {
+const getIngredients = () => fetch(`${ PATHS.baseUrl.path }/ingredients`, {
   headers: {
       'Content-Type': 'application/json',
   },
 })
   .then((res) => getResponse(res))
 
-const setOrder = ( ingredients ) => fetch(`${ PATHS.orders.path }`, {
+const setOrder = ( ingredients ) => fetch(`${ PATHS.baseUrl.path }/orders`, {
   method: 'POST',
   headers: {
       'Content-Type': 'application/json',

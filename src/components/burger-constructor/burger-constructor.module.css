@@ -4,33 +4,9 @@
   align-items: flex-end;
   justify-content: flex-start;
 
+  height: calc(100vh - 228px);
   width: 100%;
   max-width: 600px;
-}
-
-.burger-constructor__items-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 10px;
-}
-
-.burger-constructor__center-items-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-
-  overflow-y: overlay;
-  overflow-x: hidden;
-
-  max-height: calc(100vh - 512px);
-}
-
-
-.burger-constructor__item-container {
-  display: flex;
-  align-items: center;
-  gap: 13px;
 }
 
 .burger-constructor__burger-price-container {
