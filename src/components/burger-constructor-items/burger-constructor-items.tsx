@@ -1,22 +1,32 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
-import PropTypes from 'prop-types';
+
+import { useDispatch } from 'services/hooks/hooks';
 
 import burgerConstructorItemsStyles from './burger-constructor-items.module.css';
 
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { addConstructorIngredient } from 'services/actions/burger-constructor';
 import FillingConstructorElement from 'components/filling-constructor-element/filling-constructor-element';
-import { ingredientType } from 'utils/types';
 
-const BurgerConstructorItems = ({ bun, fillings }) => {
+import { TIngredientType } from 'services/types/data';
+
+interface IProps {
+  bun: TIngredientType,
+  fillings: ReadonlyArray<TIngredientType>,
+}
+
+interface IDropItem {
+  item: TIngredientType,
+}
+
+const BurgerConstructorItems = ({ bun, fillings } : IProps) => {
   const dispatch = useDispatch();
 
   const [, dropTarget] = useDrop({
     accept: 'ingredient',
-    drop({item}) {
-      dispatch(addConstructorIngredient({ ingredient: item }));
+    drop({item}:IDropItem) {
+      dispatch(addConstructorIngredient(item));
     },
   });
 
@@ -57,8 +67,3 @@ const BurgerConstructorItems = ({ bun, fillings }) => {
 }
 
 export default BurgerConstructorItems;
-
-BurgerConstructorItems.propTypes = {
-  bun: PropTypes.shape(ingredientType),
-  fillings: PropTypes.arrayOf(PropTypes.shape(ingredientType)),
-};

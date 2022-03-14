@@ -1,9 +1,11 @@
 import { PATHS } from "./constants";
 
-const getResponse = (res) => (res.ok
+import { TIngredientType } from 'services/types/data';
+
+const getResponse = (res: Response) => (res.ok
   ? res.json()
   : res.json()
-      .then((err) => Promise.reject(new Error(`${err.message} (${res.status} ${res.statusText})`))));
+      .then((err: Error) => Promise.reject(new Error(`${err.message} (${res.status} ${res.statusText})`))));
 
 const getIngredients = () => fetch(`${ PATHS.baseUrl.path }/ingredients`, {
   headers: {
@@ -12,7 +14,7 @@ const getIngredients = () => fetch(`${ PATHS.baseUrl.path }/ingredients`, {
 })
   .then((res) => getResponse(res))
 
-const setOrder = ( ingredients ) => fetch(`${ PATHS.baseUrl.path }/orders`, {
+const setOrder = ( ingredients: ReadonlyArray<TIngredientType> ) => fetch(`${ PATHS.baseUrl.path }/orders`, {
   method: 'POST',
   headers: {
       'Content-Type': 'application/json',

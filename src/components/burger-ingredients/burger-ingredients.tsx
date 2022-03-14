@@ -1,28 +1,29 @@
 import React, { useState, createRef, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+
+import { useSelector, useDispatch } from 'services/hooks/hooks';
 
 import ingredientsStyles from './burger-ingredients.module.css';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import IngredientsList from '../ingredients-list/ingredients-list';
-import { getBurgerIngredients } from '../../services/actions/burger-ingredients';
+import { getBurgerIngredientsThunk } from '../../services/actions/burger-ingredients';
 
 const BurgerIngredients = () => {
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.burgerIngredients.burgerIngredients);
+  const {burgerIngredients} = useSelector((state) => state.burgerIngredients);
   const [current, setCurrent] = useState('one');
 
-  const bunsRef = createRef();
-  const sauceRef = createRef();
-  const mainRef = createRef();
+  const bunsRef = createRef<HTMLDivElement>();
+  const sauceRef = createRef<HTMLDivElement>();
+  const mainRef = createRef<HTMLDivElement>();
 
-  const onScroll = (e) =>
+  const onScroll = (e: any) =>
   {
     const delta = 10;
     const containerY = e.target.getBoundingClientRect().y;
-    const sauceY = sauceRef.current.getBoundingClientRect().y;
-    const mainY = mainRef.current.getBoundingClientRect().y;
+    const sauceY = sauceRef.current!.getBoundingClientRect().y;
+    const mainY = mainRef.current!.getBoundingClientRect().y;
 
     if (mainY <= containerY + delta){
       setCurrent('three');
@@ -34,7 +35,7 @@ const BurgerIngredients = () => {
   }
 
   useEffect(() => {
-    dispatch(getBurgerIngredients())
+    dispatch(getBurgerIngredientsThunk())
   }, [dispatch]);
 
   return (
@@ -43,27 +44,27 @@ const BurgerIngredients = () => {
       <div style={{ display: 'flex' }} className={`pb-10`}>
         <Tab value="one" active={current === 'one'} onClick={(value) => {
           setCurrent(value);
-          bunsRef.current.scrollIntoView({ behavior: 'smooth' });
+          bunsRef.current!.scrollIntoView({ behavior: 'smooth' });
         }}>
           Булки
         </Tab>
         <Tab value="two" active={current === 'two'} onClick={(value) => {
           setCurrent(value);
-          sauceRef.current.scrollIntoView({ behavior: 'smooth' });
+          sauceRef.current!.scrollIntoView({ behavior: 'smooth' });
         }}>
           Соусы
         </Tab>
         <Tab value="three" active={current === 'three'} onClick={(value) => {
           setCurrent(value);
-          mainRef.current.scrollIntoView({ behavior: 'smooth' });
+          mainRef.current!.scrollIntoView({ behavior: 'smooth' });
         }}>
           Начинки
         </Tab>
       </div>
       <div className={`${ingredientsStyles['burger-ingredients__ingredients-list-container']}`} onScroll={onScroll}>
-        <IngredientsList data={data} title="Булки" type="bun" ref={bunsRef} />
-        <IngredientsList data={data} title="Соусы" type="sauce" ref={sauceRef} />
-        <IngredientsList data={data} title="Начинки" type="main" ref={mainRef} />
+        <IngredientsList data={burgerIngredients} title="Булки" type="bun" ref={bunsRef} />
+        <IngredientsList data={burgerIngredients} title="Соусы" type="sauce" ref={sauceRef} />
+        <IngredientsList data={burgerIngredients} title="Начинки" type="main" ref={mainRef} />
       </div>
     </section>
   );

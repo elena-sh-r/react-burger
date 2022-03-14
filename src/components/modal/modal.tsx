@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import PropTypes from 'prop-types';
 
 import modalStyles from 'components/modal/modal.module.css';
 
@@ -9,8 +8,14 @@ import ModalOverlay from 'components/modal-overlay/modal-overlay';
 
 const modalRoot = document.getElementById("modals");
 
-const Modal = ({ children, title, onClose }) => {
-  const closeByEscape = (evt) => {
+interface IProps {
+  children: any,
+  title?: string,
+  onClose: () => void,
+}
+
+const Modal = ({ children, title, onClose }: IProps) => {
+  const closeByEscape = (evt: KeyboardEvent) => {
     if (evt.key === 'Escape') {
       onClose();
     }
@@ -33,13 +38,8 @@ const Modal = ({ children, title, onClose }) => {
         {children}
       </div>
     </ModalOverlay>,
-    modalRoot
+    modalRoot as Element
   )
 };
 
 export default Modal;
-
-Modal.propTypes = {
-  title: PropTypes.string,
-  onClose: PropTypes.func.isRequired,
-}

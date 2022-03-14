@@ -1,8 +1,18 @@
+import { TIngredientType } from '../types/data';
+
 import {
   GET_BURGER_INGREDIENTS_REQUEST,
   GET_BURGER_INGREDIENTS_SUCCESS,
   GET_BURGER_INGREDIENTS_FAILED,
-} from '../actions/burger-ingredients';
+} from '../constants';
+
+import { TBurgerIngredientsActions } from 'services/actions/burger-ingredients';
+
+export type TBurgerIngredientsState = {
+  burgerIngredients: ReadonlyArray<TIngredientType>;
+  burgerIngredientsRequest: boolean;
+  burgerIngredientsFailed: boolean;
+};
 
 const initialState = {
   burgerIngredients: [],
@@ -10,8 +20,11 @@ const initialState = {
   burgerIngredientsFailed: false,
 };
 
-export const burgerIngredientsReducer = (state = initialState, { type, burgerIngredients }) => {
-  switch (type) {
+export const burgerIngredientsReducer = (
+  state: TBurgerIngredientsState = initialState, 
+  action: TBurgerIngredientsActions
+  ): TBurgerIngredientsState => {
+  switch (action.type) {
     case GET_BURGER_INGREDIENTS_REQUEST: {
       return {
         ...state,
@@ -22,7 +35,7 @@ export const burgerIngredientsReducer = (state = initialState, { type, burgerIng
       return {
         ...state,
         burgerIngredientsFailed: false,
-        burgerIngredients,
+        burgerIngredients: action.burgerIngredients,
         burgerIngredientsRequest: false,
       };
     }

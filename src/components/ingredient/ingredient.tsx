@@ -1,15 +1,20 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
-import PropTypes from 'prop-types';
+
+import { useSelector, useDispatch } from 'services/hooks/hooks';
 
 import ingredientStyles from './ingredient.module.css';
 
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { setIngredientDetails } from '../../services/actions/ingredient-details';
-import { ingredientType } from 'utils/types';
 
-const Ingredient = ({ item }) => {
+import { TIngredientType } from 'services/types/data';
+
+interface IProps {
+  item: TIngredientType,
+}
+
+const Ingredient = ({ item }: IProps) => {
   const dispatch = useDispatch();
 
   const [, dragRef] = useDrag({
@@ -17,16 +22,16 @@ const Ingredient = ({ item }) => {
     item: {item}
   });
 
-  const ingredientsData = useSelector((store) => store.burgerConstructor.constructorIngredients);
+  const {constructorIngredients} = useSelector((store) => store.burgerConstructor);
 
-  let count = ingredientsData.filter(x => x._id === item._id).length;
+  let count = constructorIngredients.filter(x => x._id === item._id).length;
 
   if(item.type === 'bun') {
     count *= 2;
   }
 
   return (
-    <div className={`${ingredientStyles['ingredient__item']}`} ref={dragRef} onClick={() => dispatch(setIngredientDetails({ ingredient: item }))} >
+    <div className={`${ingredientStyles['ingredient__item']}`} ref={dragRef} onClick={() => dispatch(setIngredientDetails(item))} >
       {count > 0 && <div className={`${ingredientStyles['ingredient__counter']} text_type_digits-default`}>{count}</div>}
       <img className={`pb-1`} src={item.image} alt={item.name} />
       <div className={`${ingredientStyles['ingredient__container']} pb-1`}>
@@ -39,7 +44,3 @@ const Ingredient = ({ item }) => {
 };
 
 export default Ingredient;
-
-Ingredient.propTypes = {
-  item: PropTypes.shape(ingredientType).isRequired,
-};
