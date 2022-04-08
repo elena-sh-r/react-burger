@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import appHeader from './app-header.module.css';
 
@@ -11,8 +12,10 @@ const AppHeader = () => {
       <nav className={appHeader.header__menu}>
         <ul className={`${appHeader.header__links}`}>
           <li className={`${appHeader.header__link} pl-5 pr-5 mr-2`}>
-            <BurgerIcon type="primary" />
-            <p className={`pl-2`}>Конструктор</p>
+            <Link to='/' className={`${appHeader.header__link}`}>
+              <BurgerIcon type="primary" />
+              <p className={`pl-2`}>Конструктор</p>
+            </Link>
           </li>
           <li className={`${appHeader.header__link} text_color_inactive`}>
             <ListIcon type="secondary" />
@@ -22,8 +25,10 @@ const AppHeader = () => {
         <Logo />
         <ul className={`${appHeader.header__links} ${appHeader.header__links_right} pr-5`}>
           <li className={`${appHeader.header__link} ${appHeader.header__link_type_login} text_color_inactive`}>
-            <ProfileIcon type="secondary" />
-            <p className={`pl-2`}>Личный кабинет</p>
+            <Link to='/profile' className={`${appHeader.header__link} ${appHeader.header__link_type_login} text_color_inactive`}>
+              <ProfileIcon type="secondary" />
+              <p className={`pl-2`}>Личный кабинет</p>
+            </Link>
           </li>
         </ul>
       </nav>

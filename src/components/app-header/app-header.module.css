@@ -36,6 +36,8 @@
 .header__link {
   display: flex;
   align-items: center;
+  text-decoration: none;
+  color: #F2F2F3;
 }
 
 .header__link_type_login {

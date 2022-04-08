@@ -1,63 +1,52 @@
-import React, { useEffect } from 'react';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import appStyles from 'components/app/app.module.css' ;
 
 import AppHeader from 'components/app-header/app-header';
-import BurgerIngredients from 'components/burger-ingredients/burger-ingredients';
-import BurgerConstructor from 'components/burger-constructor/burger-constructor';
-import IngredientDetails from 'components/ingredient-details/ingredient-details';
-import OrderDetails from 'components/order-details/order-details';
-import Modal from 'components/modal/modal';
-
-import { useSelector, useDispatch } from 'services/hooks/hooks';
-
-import { resetIngredientDetails } from 'services/actions/ingredient-details';
-import { resetOrderDetailsAction } from 'services/actions/order-details';
-import { resetConstructorIngredients } from 'services/actions/burger-constructor';
+import Home from 'pages/home/home';
+import Login from 'pages/login/login';
+import Register from 'pages/register/register';
+import ForgotPassword from 'pages/forgot-password/forgot-password';
+import ResetPassword from 'pages/reset-password/reset-password';
+import Profile from 'pages/profile/profile';
+import ProtectedRoute from 'components/protected-route/protected-route';
+import ProfileOrders from 'pages/profile-orders/profile-orders';
 
 const App = () => {
-  const dispatch = useDispatch();
-  const {ingredientDetails} = useSelector((state) => state.ingredientDetails);
-  const {orderDetails} = useSelector((state) => state.orderDetails);
-
-  useEffect(() => {
-    dispatch(resetConstructorIngredients());
-  }, [orderDetails]);
-
-  const onIngredientModalClose = () => {
-    dispatch(resetIngredientDetails());
-  }
-
-  const onOrderModalClose = () => {
-    dispatch(resetOrderDetailsAction());
-  }
-
   return (
-    <div className={`${appStyles.app}`}>
-      <AppHeader/>
-
-      <main className={`${appStyles.main}`}>
-        <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients />
-
-          <BurgerConstructor />
-
-          {ingredientDetails && 
-            <Modal title={"Детали ингредиента"} onClose={onIngredientModalClose} >
-              <IngredientDetails />
-            </Modal> 
-          }
-
-          {orderDetails && 
-            <Modal onClose={onOrderModalClose} >
-              <OrderDetails />
-            </Modal> 
-          }
-        </DndProvider>
-      </main>
-    </div>
+    <Router>
+      <div className={`${appStyles.app}`}>
+        <AppHeader/>
+        <Switch>
+          <Route path={"/"} exact={true}>
+            <Home />
+          </Route>
+          <Route path={"/ingredients/:id"} exact={true} component={Home}>
+          </Route>
+          <Route path={"/login"} component={Login}>
+          </Route>
+          <Route path={"/register"}>
+            <Register />
+          </Route>
+          <Route path={"/forgot-password"}>
+            <ForgotPassword />
+          </Route>
+          <Route path={"/reset-password"}>
+            <ResetPassword />
+          </Route>
+          <ProtectedRoute path={"/profile"} exact={true}>
+            <Profile />
+          </ProtectedRoute>
+          <ProtectedRoute path={"/profile/orders"} exact={true}>
+            <ProfileOrders />
+          </ProtectedRoute>
+          <Route path="*">
+            404
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
