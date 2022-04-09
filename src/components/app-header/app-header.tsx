@@ -22,7 +22,9 @@ const AppHeader = () => {
             <p className={`pl-2`}>Лента заказов</p>
           </li>
         </ul>
-        <Logo />
+        <Link to='/' className={`${appHeader.header__link}`}>
+          <Logo />
+        </Link>
         <ul className={`${appHeader.header__links} ${appHeader.header__links_right} pr-5`}>
           <li className={`${appHeader.header__link} ${appHeader.header__link_type_login} text_color_inactive`}>
             <Link to='/profile' className={`${appHeader.header__link} ${appHeader.header__link_type_login} text_color_inactive`}>

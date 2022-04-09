@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import profileFormStyles from './profile.module.css' ;
 
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector, useDispatch } from "services/hooks/hooks";
-import { exitUserThunk, getUserThunk, patchUserThunk, resetPatchUserAction } from "services/actions/user";
+import { getUserThunk, patchUserThunk, resetPatchUserAction } from "services/actions/user";
 import useAuth from "services/auth";
 import ProfileMenu from "components/profile-menu/profile-menu";
 
@@ -42,7 +42,6 @@ const Profile = () => {
   }, [user]);
 
   useEffect(() => {
-    const fieldsDisabled = nameDisabled && emailDisabled && passwordDisabled;
     if (
       ((nameValue !== currenNameValue)) ||
       ((emailValue !== currentEmailValue)) ||

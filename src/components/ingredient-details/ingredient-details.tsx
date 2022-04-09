@@ -1,13 +1,43 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import { useSelector } from 'services/hooks/hooks';
+import { useDispatch, useSelector } from 'services/hooks/hooks';
 
 import ingredientDetailsStyles from 'components/ingredient-details/ingredient-details.module.css'
 
 import NutritionValue from "components/nutrition-value/nutrition-value";
+import { useHistory, useParams } from 'react-router-dom';
+import { setIngredientDetails } from 'services/actions/ingredient-details';
+import { getBurgerIngredientsThunk } from 'services/actions/burger-ingredients';
+
+interface IParams {
+  ingredientId: string;
+}
 
 const IngredientDetails = () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const { ingredientId } = useParams<IParams>();
+
+  const {burgerIngredients} = useSelector((state) => state.burgerIngredients);
   const {ingredientDetails} = useSelector((state) => state.ingredientDetails);
+
+  useEffect(() => {
+    if (!burgerIngredients || burgerIngredients?.length === 0){
+        dispatch(getBurgerIngredientsThunk());
+        return;
+    }
+    const item = burgerIngredients?.find( x => x._id === ingredientId );
+
+    if (item)
+    {
+      dispatch(setIngredientDetails(item));
+    }
+    else
+    {
+      history.push('');
+    }
+    
+  }, [burgerIngredients, ingredientId]);
 
   return (
     <div className={`${ingredientDetailsStyles['ingredient-details']}`}>
