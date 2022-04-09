@@ -1,14 +1,8 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, RouteProps } from 'react-router-dom';
 import useAuth from 'services/auth';
 
-interface IProps {
-  children: any,
-  path: string,
-  exact?: boolean,
-}
-
-const ProtectedRoute = ({ children, path, exact, ...rest }: IProps) => {
+const ProtectedRoute = ({ children, path, exact, ...rest }: RouteProps) => {
   const {refreshToken} = useAuth();
 
   return (
