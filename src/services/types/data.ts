@@ -17,3 +17,8 @@ export type TIngredientType = {
 export type TOrderDetailsType = {
   readonly number: number;
 };
+
+export type TUserInfoType = {
+  readonly email: string;
+  readonly name: string;
+}

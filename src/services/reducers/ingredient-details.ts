@@ -9,10 +9,12 @@ import { TIngredintsDetailsActions } from 'services/actions/ingredient-details';
 
 export type TIngredientDetailsState = {
   ingredientDetails: TIngredientType | null;
+  modalOpened: boolean;
 };
 
 const initialState = {
   ingredientDetails: null,
+  modalOpened: false,
 };
 
 export const ingredientDetailsReducer = (

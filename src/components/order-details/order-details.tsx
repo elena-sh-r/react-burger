@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import { useSelector } from 'services/hooks/hooks';
+import { useDispatch, useSelector } from 'services/hooks/hooks';
 
 import orderDetailsStyles from 'components/order-details/order-details.module.css';
 
 import doneImagePath from 'images/order-details__done.gif'
+import { resetConstructorIngredients } from 'services/actions/burger-constructor';
 
 const OrderDetails = () => {
+  const dispatch = useDispatch();
   const { orderDetails } = useSelector((state) => state.orderDetails);
+
+  useEffect(() => {
+    dispatch(resetConstructorIngredients());
+  }, [orderDetails]);
 
   return (
     <div className={`${orderDetailsStyles['order-details']} pb-30 pt-4`}>

@@ -51,5 +51,6 @@ export const getBurgerIngredientsThunk: AppThunk = () => (dispatch: AppDispatch)
     } else {
       dispatch(getBurgerIngredientsFailedAction());
     }
-  });
+  })
+  .catch(() =>  dispatch(getBurgerIngredientsFailedAction()));
 };

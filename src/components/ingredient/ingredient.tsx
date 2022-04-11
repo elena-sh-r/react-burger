@@ -1,12 +1,12 @@
 import React from 'react';
 import { useDrag } from 'react-dnd';
+import { useHistory, useLocation } from 'react-router-dom';
 
-import { useSelector, useDispatch } from 'services/hooks/hooks';
+import { useSelector } from 'services/hooks/hooks';
 
 import ingredientStyles from './ingredient.module.css';
 
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { setIngredientDetails } from '../../services/actions/ingredient-details';
 
 import { TIngredientType } from 'services/types/data';
 
@@ -15,7 +15,8 @@ interface IProps {
 }
 
 const Ingredient = ({ item }: IProps) => {
-  const dispatch = useDispatch();
+  const location = useLocation();
+  const history = useHistory();
 
   const [, dragRef] = useDrag({
     type: 'ingredient',
@@ -31,7 +32,7 @@ const Ingredient = ({ item }: IProps) => {
   }
 
   return (
-    <div className={`${ingredientStyles['ingredient__item']}`} ref={dragRef} onClick={() => dispatch(setIngredientDetails(item))} >
+    <div className={`${ingredientStyles['ingredient__item']}`} ref={dragRef} onClick={() => history.push('/ingredients/' + item._id, { background: location })} >
       {count > 0 && <div className={`${ingredientStyles['ingredient__counter']} text_type_digits-default`}>{count}</div>}
       <img className={`pb-1`} src={item.image} alt={item.name} />
       <div className={`${ingredientStyles['ingredient__container']} pb-1`}>

@@ -5,15 +5,25 @@ import { TConstructorIngredientActions } from '../actions/burger-constructor';
 import { TBurgerIngredientsActions } from '../actions/burger-ingredients';
 import { TOrderDetailsActions } from 'services/actions/order-details';
 import { TIngredintsDetailsActions } from 'services/actions/ingredient-details';
+import { TUserActions } from 'services/actions/user';
+
+// Типизация всех экшенов приложения
 
 type TApplicationActions =
   TConstructorIngredientActions
   | TBurgerIngredientsActions
   | TIngredintsDetailsActions
-  | TOrderDetailsActions;
+  | TOrderDetailsActions
+  | TUserActions;
 
 export type RootState = ReturnType<typeof store.getState>;
+
+// Типизация метода dispatch для проверки на валидность отправляемого экшена
+
 export type AppDispatch = typeof store.dispatch;
+
+// Типизация thunk в приложении
+
 export type AppThunk<ReturnType = void> = ActionCreator<
   ThunkAction<ReturnType, Action, RootState, TApplicationActions>
 >;

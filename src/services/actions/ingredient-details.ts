@@ -8,7 +8,6 @@ import { TIngredientType } from '../types/data';
 export interface ISetIngredientsDetails {
   readonly type: typeof SET_INGREDIENT_DETAILS;
   readonly ingredientDetails: TIngredientType;
-
 }
 
 export interface IResetIngredientsDetails {

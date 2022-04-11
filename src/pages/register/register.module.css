@@ -1,0 +1,32 @@
+.register-form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  gap: 24px;
+  width: 100%;
+}
+
+.register-form-container > div {
+  width: 100%;
+}
+
+.register-form-container > div > div {
+  width: 100%;
+}
+
+.register-form__link {
+  text-decoration: none;
+  color: #4C4CFF;
+  transition: .3s;
+}
+
+.register-form__link:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.register-form__bottom-text {
+  margin: 0 auto;
+  text-align: center;
+}
