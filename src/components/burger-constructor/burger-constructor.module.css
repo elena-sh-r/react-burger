@@ -18,3 +18,8 @@
 .burger-constructor__burger-price {
   padding-right: 10px;
 }
+
+.burger-constructor__order-button {
+  opacity: 0.6;
+  pointer-events: none;
+}

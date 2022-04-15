@@ -2,8 +2,17 @@
   position: relative;
   display: flex;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: flex-end;
   margin: 0 auto;
   max-width: 1240px;
   width: 100%;
+}
+
+.orders-container {
+  max-width: 844px;
+  width: 100%;
+}
+
+.orders-container > section > div {
+  height: calc(100vh - 136px);
 }

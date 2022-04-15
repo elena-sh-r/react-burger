@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import appStyles from 'components/app/app.module.css' ;
 
 import AppHeader from 'components/app-header/app-header';
-import ModalSwitch from 'components/modalSwitch/modal-switch';
+import ModalSwitch from 'components/modal-switch/modal-switch';
 
 const App = () => {
   return (

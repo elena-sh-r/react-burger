@@ -17,9 +17,11 @@ const AppHeader = () => {
               <p className={`pl-2`}>Конструктор</p>
             </Link>
           </li>
-          <li className={`${appHeader.header__link} text_color_inactive`}>
-            <ListIcon type="secondary" />
-            <p className={`pl-2`}>Лента заказов</p>
+          <li className={`${appHeader.header__link}`}>
+            <Link to='/feed' className={`${appHeader.header__link}`}>
+              <ListIcon type="secondary" />
+              <p className={`pl-2 text_color_inactive`}>Лента заказов</p>
+            </Link>
           </li>
         </ul>
         <Link to='/' className={`${appHeader.header__link}`}>
@@ -27,7 +29,7 @@ const AppHeader = () => {
         </Link>
         <ul className={`${appHeader.header__links} ${appHeader.header__links_right} pr-5`}>
           <li className={`${appHeader.header__link} ${appHeader.header__link_type_login} text_color_inactive`}>
-            <Link to='/profile' className={`${appHeader.header__link} ${appHeader.header__link_type_login} text_color_inactive`}>
+            <Link to='/profile/orders' className={`${appHeader.header__link} ${appHeader.header__link_type_login} text_color_inactive`}>
               <ProfileIcon type="secondary" />
               <p className={`pl-2`}>Личный кабинет</p>
             </Link>

@@ -6,6 +6,7 @@ import { TBurgerIngredientsActions } from '../actions/burger-ingredients';
 import { TOrderDetailsActions } from 'services/actions/order-details';
 import { TIngredintsDetailsActions } from 'services/actions/ingredient-details';
 import { TUserActions } from 'services/actions/user';
+import { TWsActions } from 'services/actions/ws';
 
 // Типизация всех экшенов приложения
 
@@ -14,7 +15,8 @@ type TApplicationActions =
   | TBurgerIngredientsActions
   | TIngredintsDetailsActions
   | TOrderDetailsActions
-  | TUserActions;
+  | TUserActions
+  | TWsActions;
 
 export type RootState = ReturnType<typeof store.getState>;
 

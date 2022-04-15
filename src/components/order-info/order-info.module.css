@@ -1,0 +1,56 @@
+.order-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  max-width: 640px;
+  width: 100%;
+  margin: auto;
+}
+
+.order-title {
+  display: flex;
+  max-height: 64px;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.order-info__done-image {
+  max-height: 120px;
+}
+
+.text_color_success {
+  color: #00CCCC;
+}
+
+.order-info-ingredients {
+  display: flex;
+  flex-direction: column;
+  gap: 16px 0;
+  height: 304px;
+  overflow: overlay;
+  padding-right: 33px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.order-info-time-price {
+  display: flex;
+  padding-top: 48px;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.order-info-time {
+  flex: 1;
+}
+
+.order-title_modal {
+  margin-top: -40px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}

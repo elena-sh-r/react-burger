@@ -1,3 +1,5 @@
+import { ORDER_STATUS_DONE, ORDER_STATUS_PENDING } from "utils/constants";
+
 export type TIngredientType = {
   readonly _id?: string;
   readonly index?: number;
@@ -21,4 +23,16 @@ export type TOrderDetailsType = {
 export type TUserInfoType = {
   readonly email: string;
   readonly name: string;
+}
+
+export type TOrderStatusType = typeof ORDER_STATUS_DONE | typeof ORDER_STATUS_PENDING
+
+export type TOrderType = {
+  readonly number: number;
+  readonly name: string;
+  readonly status: TOrderStatusType;
+  readonly _id: string;
+  readonly createdAt: string;
+  readonly updatedAt: string;
+  readonly ingredients: ReadonlyArray<string | null>;
 }

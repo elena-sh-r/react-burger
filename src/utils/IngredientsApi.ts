@@ -14,9 +14,10 @@ const getIngredients = () => fetch(`${ PATHS.baseUrl.path }/ingredients`, {
 })
   .then((res) => getResponse(res))
 
-const setOrder = ( ingredients: ReadonlyArray<TIngredientType> ) => fetch(`${ PATHS.baseUrl.path }/orders`, {
+const setOrder = ( ingredients: ReadonlyArray<TIngredientType>, accessToken: string ) => fetch(`${ PATHS.baseUrl.path }/orders`, {
   method: 'POST',
   headers: {
+      "Authorization" : accessToken,
       'Content-Type': 'application/json',
   },
   body: JSON.stringify({

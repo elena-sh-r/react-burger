@@ -15,11 +15,12 @@
   background-color: #131316;
   font-family: 'JetBrains Mono', Arial, Helvetica, sans-serif;
   text-rendering: optimizeLegibility;
+  color: #F2F2F3;
 }
 
 ::-webkit-scrollbar {
   width: 8px;
-  height: 66%;
+  height: 8px;
 
   background-color: #2F2F37;
 }
@@ -29,3 +30,7 @@
   
   background-color: #8585AD;
 }
+
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+  }
