@@ -10,13 +10,9 @@ export const socketMiddleware = ({wsUrl, wsActions} : IProps) => {
     return (next: any) => (action: any) => {
       const { dispatch } = store;
       const { type, payload } = action;
-      const { wsInit, onOpen, onClose, onError, onMessage } = wsActions;
+      const { wsInit, onOpen, wsClose, onClose, onError, onMessage } = wsActions;
 
       if (type === wsInit) {
-        if (socket){
-          socket.close();
-        }
-
         const token = payload;
         if (token){
           socket = new WebSocket(`${wsUrl}?token=${token.substring(7)}`);
@@ -25,7 +21,11 @@ export const socketMiddleware = ({wsUrl, wsActions} : IProps) => {
           socket = new WebSocket(`${wsUrl}/all`);
         }
       }
-      
+
+      if (type === wsClose) {
+          socket?.close();
+      }
+
       if (socket) {
         socket.onopen = event => {
           dispatch({ type: onOpen, payload: event });

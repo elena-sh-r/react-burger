@@ -1,11 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import ordersFeedStyles from './orders-feed.module.css';
 
 import OrderCard from 'components/order-card/order-card';
 import { TOrderType } from 'services/types/data';
-import { useDispatch } from 'services/hooks/hooks';
-import { getBurgerIngredientsThunk } from 'services/actions/burger-ingredients';
 
 interface IProps {
   orders: ReadonlyArray<TOrderType>,
@@ -13,11 +11,6 @@ interface IProps {
 }
 
 const OrdersFeed = ({orders, statusVisible} : IProps) => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getBurgerIngredientsThunk())
-  }, [dispatch]);
 
   return (
     <section className={`${ordersFeedStyles['orders-feed']}`}>

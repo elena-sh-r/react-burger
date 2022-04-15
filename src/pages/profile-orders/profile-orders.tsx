@@ -9,7 +9,7 @@ import OrdersFeed from "components/orders-feed/orders-feed";
 
 import { getUserThunk } from "services/actions/user";
 import { useDispatch, useSelector } from "services/hooks/hooks";
-import { wsConnectionStart } from "services/actions/ws";
+import { wsConnectionClose, wsConnectionStart } from "services/actions/ws";
 import { TOrderType } from "services/types/data";
 
 const ProfileOrders = () => {
@@ -26,6 +26,9 @@ const ProfileOrders = () => {
     if (user) {
       dispatch(wsConnectionStart(accessToken));
     }
+    return () => {
+      dispatch(wsConnectionClose());
+    };
   }, [user]);
 
   if (!refreshToken) {

@@ -7,8 +7,7 @@ import { Redirect, useParams } from 'react-router-dom';
 
 import { ORDER_STATUS_CREATED, ORDER_STATUS_DONE, ORDER_STATUS_PENDING } from 'utils/constants';
 import { TOrderType } from 'services/types/data';
-import { wsConnectionStart } from 'services/actions/ws';
-import { getBurgerIngredientsThunk } from 'services/actions/burger-ingredients';
+import { wsConnectionClose, wsConnectionStart } from 'services/actions/ws';
 import OrderInfoIngredient from 'components/order-info-ingredient/order-info-ingredient';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -27,14 +26,16 @@ const OrderInfo = ({isModal} : IProps) => {
   const {burgerIngredients} = useSelector((state) => state.burgerIngredients);
 
   useEffect(() => {
-    dispatch(getBurgerIngredientsThunk())
-  }, [dispatch]);
-
-  useEffect(() => {
     if (!message) {
       dispatch(wsConnectionStart());
     }
   }, [dispatch, message]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(wsConnectionClose());
+    };
+  }, [dispatch]);
 
   const order = message?.orders?.find((x: TOrderType) => x._id === orderId);
 

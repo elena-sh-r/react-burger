@@ -3,6 +3,7 @@ import {
   WS_CONNECTION_START,
   WS_CONNECTION_SUCCESS,
   WS_CONNECTION_ERROR,
+  WS_CONNECTION_CLOSE,
   WS_CONNECTION_CLOSED,
   WS_GET_MESSAGE
 } from '../constants/index';
@@ -37,6 +38,12 @@ export const wsReducer = (state: TWsState = initialState,
         ...state,
         wsConnected: false,
       };
+
+    case WS_CONNECTION_CLOSE:
+    return {
+      ...state,
+      message: null,
+    };
 
     case WS_CONNECTION_CLOSED:
       return {

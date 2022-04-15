@@ -5,9 +5,8 @@ import feedStyles from './feed.module.css' ;
 import OrdersFeed from 'components/orders-feed/orders-feed';
 import OrdersBoard from 'components/orders-board/orders-board';
 
-import { useDispatch } from 'react-redux';
-import { wsConnectionStart } from 'services/actions/ws';
-import { useSelector } from 'services/hooks/hooks';
+import { wsConnectionClose, wsConnectionStart } from 'services/actions/ws';
+import { useDispatch, useSelector } from 'services/hooks/hooks';
 
 const Feed = () => {
   const dispatch = useDispatch();
@@ -15,6 +14,9 @@ const Feed = () => {
 
   useEffect(() => {
     dispatch(wsConnectionStart());
+    return () => {
+      dispatch(wsConnectionClose());
+    };
   }, [dispatch]);
 
   return (

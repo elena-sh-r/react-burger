@@ -1,6 +1,7 @@
 import {
   WS_CONNECTION_SUCCESS,
   WS_CONNECTION_ERROR,
+  WS_CONNECTION_CLOSE,
   WS_CONNECTION_CLOSED,
   WS_GET_MESSAGE,
   WS_CONNECTION_START,
@@ -18,6 +19,10 @@ export interface IWsConnectionError {
   readonly type: typeof WS_CONNECTION_ERROR;
 }
 
+export interface IWsConnectionClose {
+  readonly type: typeof WS_CONNECTION_CLOSE;
+}
+
 export interface IWsConnectionClosed {
   readonly type: typeof WS_CONNECTION_CLOSED;
 }
@@ -30,6 +35,7 @@ export interface IWsGetMessage {
 export type TWsActions =
   IWsConnectionSuccess
   | IWsConnectionError
+  | IWsConnectionClose
   | IWsConnectionClosed
   | IWsGetMessage
   | IWsConnectionStart;
@@ -50,6 +56,12 @@ export const wsConnectionSuccess = () => {
 export const wsConnectionError = () => {
   return {
     type: WS_CONNECTION_ERROR
+  };
+};
+
+export const wsConnectionClose = () => {
+  return {
+    type: WS_CONNECTION_CLOSE
   };
 };
 
