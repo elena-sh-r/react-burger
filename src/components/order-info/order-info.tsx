@@ -33,7 +33,9 @@ const OrderInfo = ({isModal} : IProps) => {
 
   useEffect(() => {
     return () => {
-      dispatch(wsConnectionClose());
+      if(!isModal) {
+        dispatch(wsConnectionClose());
+      }
     };
   }, [dispatch]);
 
