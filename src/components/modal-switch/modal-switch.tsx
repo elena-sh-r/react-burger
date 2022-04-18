@@ -13,6 +13,8 @@ import { useDispatch } from 'services/hooks/hooks';
 import { resetIngredientDetails } from 'services/actions/ingredient-details';
 import IngredientDetails from 'components/ingredient-details/ingredient-details';
 import Modal from 'components/modal/modal';
+import Feed from 'pages/feed/feed';
+import OrderInfo from 'components/order-info/order-info';
 
 interface ILocationState {
   background: any;
@@ -34,26 +36,31 @@ const ModalSwitch = () => {
   const openedFromList = background && history.action === 'PUSH';
 
   return (
-    <div>
+    <>
       <Switch location={openedFromList ? background : location}>
         <Route path={"/"} exact={true}>
           <Home />
         </Route>
-        <Route path={"/ingredients/:ingredientId"} children={<IngredientDetails />} />
+        <Route path={"/ingredients/:ingredientId"} children={<IngredientDetails />} exact={true} />
         <Route path={"/login"} component={Login}>
         </Route>
-        <Route path={"/register"}>
+        <Route path={"/register"} exact={true} >
           <Register />
         </Route>
-        <Route path={"/forgot-password"}>
+        <Route path={"/forgot-password"} exact={true} >
           <ForgotPassword />
         </Route>
-        <Route path={"/reset-password"}>
+        <Route path={"/reset-password"} exact={true} >
           <ResetPassword />
+        </Route>
+        <Route path={"/feed/:orderId"} children={<OrderInfo />} exact={true} />
+        <Route path={"/feed"} exact={true}>
+          <Feed />
         </Route>
         <ProtectedRoute path={"/profile"} exact={true}>
           <Profile />
         </ProtectedRoute>
+        <ProtectedRoute path={"/profile/orders/:orderId"} children={<OrderInfo />} exact={true} />
         <ProtectedRoute path={"/profile/orders"} exact={true}>
           <ProfileOrders />
         </ProtectedRoute>
@@ -66,7 +73,17 @@ const ModalSwitch = () => {
           <IngredientDetails />
         </Modal> 
       } />}
-    </div>
+      {openedFromList && <Route path="/feed/:orderId" children={
+        <Modal onClose={onIngredientModalClose} >
+          <OrderInfo isModal={true}/>
+        </Modal> 
+      } />}
+      {openedFromList && <Route path="/profile/orders/:orderId" children={
+        <Modal onClose={onIngredientModalClose} >
+          <OrderInfo isModal={true}/>
+        </Modal> 
+      } />}
+    </>
   );
 }
 

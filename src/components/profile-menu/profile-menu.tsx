@@ -1,6 +1,6 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { useDispatch } from "services/hooks/hooks";
+import React, { useEffect } from 'react';
+import { NavLink, Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from "services/hooks/hooks";
 import { exitUserThunk } from "services/actions/user";
 import useAuth from 'services/auth';
 
@@ -9,6 +9,13 @@ import profileMenuStyles from './profile-menu.module.css';
 const ProfileMenu = () => {
   const dispatch = useDispatch();
   const { refreshToken } = useAuth();
+  const { exitUserSuccess } = useSelector((state) => state.user);
+
+  useEffect(() => {}, [exitUserSuccess])
+
+  if (!refreshToken) {
+    return <Redirect to={'/login'} />
+  }
 
   return (
     <section className={`${profileMenuStyles['profile-menu']}`}>

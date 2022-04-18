@@ -1,0 +1,19 @@
+.main {
+  display: flex;
+  align-items:flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1240px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  gap: 20px 60px;
+}
+
+.feed-container {
+  max-width: 600px;
+}
+
+.feed-title {
+  width: 100%;
+}

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from 'react-router-dom';
 
 import profileFormStyles from './profile.module.css' ;
 
@@ -109,10 +108,6 @@ const Profile = () => {
     setNameValue(currenNameValue);
     setEmailValue(currentEmailValue);
     setPasswordValue(currentPasswordValue);
-  }
-
-  if (!refreshToken) {
-    return <Redirect to={'/login'} />
   }
 
   return (

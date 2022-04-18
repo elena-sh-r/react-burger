@@ -17,7 +17,7 @@ const BurgerConstructor = () => {
 
   const { accessToken } = useSelector((state) => state.user);
   const { constructorIngredients } = useSelector((store) => store.burgerConstructor);
-  const { orderDetailsUnauthStart } = useSelector((store) => store.orderDetails);
+  const { orderDetailsUnauthStart, orderDetailsRequest } = useSelector((store) => store.orderDetails);
 
   const isBun = (item: TIngredientType) => item.type === 'bun';
 
@@ -30,6 +30,10 @@ const BurgerConstructor = () => {
   const orderIngredientsData = [bun].concat(fillings).concat([bun]);
 
   const createOrder = () => {
+    if (orderDetailsRequest){
+      return;
+    }
+
     if (refreshToken){
       dispatch(getOrderDetailsThunk(refreshToken, accessToken, orderIngredientsData));
     }
@@ -54,8 +58,8 @@ const BurgerConstructor = () => {
           <p className={`${burgerConstructorStyles['burger-constructor__burger-price']} text text_type_digits-medium`}>{totalPrice}</p>
           <CurrencyIcon type="primary" />
         </div>
-        {bun && totalPrice > 0 && <div className={`pl-10`}><Button type="primary" size="large" onClick={createOrder} >
-          Оформить заказ
+        {bun && totalPrice > 0 && <div className={`pl-10 ${orderDetailsRequest && burgerConstructorStyles['burger-constructor__order-button']}`}><Button type="primary" size="large" onClick={createOrder} >
+          {orderDetailsRequest ? 'Заказываем...' : 'Оформить заказ'}
         </Button></div>}
       </div>
     </section>

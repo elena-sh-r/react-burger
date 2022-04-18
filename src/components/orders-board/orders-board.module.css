@@ -1,0 +1,53 @@
+.orders-board {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 580px;
+  gap: 60px 0;
+}
+
+.orders-board__container {
+  width: 100%;
+  display: flex;
+  gap: 0 36px;
+}
+
+.orders-board__done {
+  display: flex;
+  flex-direction: column;
+  gap: 24px 0;
+  width: 100%;
+}
+
+.orders-board__done-number {
+  color: #00CCCC;
+}
+
+.orders-board__in-work {
+  display: flex;
+  flex-direction: column;
+  gap: 24px 0;
+  width: 100%;
+}
+
+.orders-board__completed-number {
+  text-shadow: 0px 0px 16px rgba(51, 51, 255, 0.25), 0px 0px 8px rgba(51, 51, 255, 0.25), 0px 4px 32px rgba(51, 51, 255, 0.5);
+}
+
+.orders-board__numbers-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  max-height: 152px;
+  max-width: 248px;
+  overflow: auto;
+}
+
+.orders-board__numbers {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  max-height: 314px;
+  height: fit-content;
+}

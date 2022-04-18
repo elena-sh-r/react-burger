@@ -88,7 +88,7 @@ export const getOrderDetailsThunk: AppThunk = ( refreshToken: string, accessToke
     return;
   }
 
-  setOrder(ingredients).then(res => {
+  setOrder(ingredients, accessToken).then(res => {
     if (res && res.success) {
       dispatch(getOrderDetailsActionSuccess(res.order));
     } else if (res && !res.success && res.message === 'jwt expired') {

@@ -1,16 +1,14 @@
-import React, { useState, createRef, useEffect } from 'react';
+import React, { useState, createRef } from 'react';
 
-import { useSelector, useDispatch } from 'services/hooks/hooks';
+import { useSelector } from 'services/hooks/hooks';
 
 import ingredientsStyles from './burger-ingredients.module.css';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import IngredientsList from '../ingredients-list/ingredients-list';
-import { getBurgerIngredientsThunk } from '../../services/actions/burger-ingredients';
 
 const BurgerIngredients = () => {
-  const dispatch = useDispatch();
   const {burgerIngredients} = useSelector((state) => state.burgerIngredients);
   const [current, setCurrent] = useState('one');
 
@@ -33,10 +31,6 @@ const BurgerIngredients = () => {
       setCurrent('one');
     }
   }
-
-  useEffect(() => {
-    dispatch(getBurgerIngredientsThunk())
-  }, [dispatch]);
 
   return (
     <section className={`${ingredientsStyles['burger-ingredients']} pt-10 pl-5 pb-10`}>
