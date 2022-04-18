@@ -16,7 +16,7 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <Router>
+    <Router basename='react-burger'>
       <div className={`${appStyles.app}`}>
         <AppHeader/>
         <ModalSwitch/>
